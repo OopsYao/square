@@ -1,0 +1,22 @@
+name: CI
+on:
+  pull_request_target:
+    branches: main
+
+jobs:
+  commit-lint:
+    name: Lint Commit
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout head # Run lint commit against the head branch
+        uses: actions/checkout@v2.3.4
+        with:
+          fetch-depth: 0 # fetch all commits for linting
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.ref }}
+          persist-credentials: false
+      - name: Commit linter
+        uses: wagoid/commitlint-github-action@v2.0.3
+        id: commitlint
+        with:
+          configFile: .commitlintrc.yml
