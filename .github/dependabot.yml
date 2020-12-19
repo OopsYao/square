@@ -1,0 +1,8 @@
+updates:
+  # Update GitHub actions
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: daily
+    commit-message:
+      prefix: "ci(deps)"
